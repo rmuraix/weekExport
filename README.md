@@ -10,6 +10,7 @@ Output next week like this to the clipboard:
 06/09(木)
 06/10(金)
 06/11(土)
+06/12(日)
 ```
 ## Usage
 ### Windows
