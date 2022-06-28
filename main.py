@@ -33,12 +33,12 @@ def exWeek():
     for i in range(7):
         daysDelta = 7 - weekday + i
 
-        next = dtNow + datetime.timedelta(days=daysDelta)
+        d = dtNow + datetime.timedelta(days=daysDelta)
 
-        key = next.strftime("%a")
+        key = d.strftime("%a")
         w = d_week[key]
 
-        formatDate = next.strftime("%m/%d") + f"({w})"
+        formatDate = d.strftime("%m/%d") + f"({w})"
 
         result += str(formatDate) + "\n"
 
