@@ -1,4 +1,3 @@
-import subprocess
 import pyperclip
 import datetime
 
@@ -11,8 +10,7 @@ def main():
 
     pyperclip.copy(exportStr)
 
-    print('Copied to Clipboard! Exit the program after the next action.')
-    subprocess.call('PAUSE', shell=True)
+    input('Copied to Clipboard! Press Enter to Exit.')
 
 def exWeek():
 
