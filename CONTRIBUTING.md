@@ -4,20 +4,16 @@
 Read [CODE_OF_CONDUCT.md](/CODE_OF_CONDUCT.md)  
 
 ## Requirements
-- Python 3.10.4 or later  
+- Python 3.10 or later  
 
 ## Submitting a Pull Request
 Pull requests are great. Here's a quick guide:
 
 1. Fork the repo on github.  
 2. Make a new branch.  
-3. Install packages.  
-```shell
-pip install -r requirements.txt
-```
-4. Test your code and commits changes.
-5. Push to your fork and submit a pull request against `Develop`  
-6. Wait for review.  
+3. Test your code and commits changes.
+4. Push to your fork and submit a pull request against `Develop`  
+5. Wait for review.  
 
 Suggestions for improvements or alternative ideas may happen.  
 
@@ -25,11 +21,10 @@ All the submitted pieces including potential data must be compatible with the MI
 
 ## Submitting a Question
 
-If you want to ask a question about a specific Nuitka aspect, please be kind
-and first of all..
+If you want to ask a question, please be kind and first of all..
 
-* Search for existing issues  
-* If not asked yet, ask it there.  
+- Search for existing issues  
+- If not asked yet, ask it there.  
 
 ## And finally
 Welcome on board. We are friendly. Join it now👀
