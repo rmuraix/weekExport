@@ -1,3 +1,3 @@
-Nuitka==0.9
+Nuitka==1.0
 pyperclip==1.8.2
 zstandard==0.18.0
