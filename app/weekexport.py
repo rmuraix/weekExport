@@ -24,9 +24,9 @@ def main():
 def genarate_json(
     json_path,
 ):  # generate json file When "./run_config.json" cannot be found
-    str = {"style": "JP", "start": 1, "loop": 1}
+    json_str = {"style": "JP", "start": 1, "loop": 1}
     with open(json_path, "w") as f:
-        json.dump(str, f, indent=4)
+        json.dump(json_str, f, indent=4)
 
 
 if __name__ == "__main__":
