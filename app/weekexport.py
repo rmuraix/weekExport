@@ -39,7 +39,7 @@ def genarate_str(config):
     export_str = ""
 
     # rule　check
-    if (style != "JP") and (style != "EN"):
+    if style not in ["JP", "EN"]:
         print("Invalid style")
         sys.exit()
     if (type(start) is int) == False:
