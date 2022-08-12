@@ -39,7 +39,7 @@ def genarate_str(config):
     export_str = ""
 
     # rule　check
-    if ((style != "JP") and (style != "EN")):
+    if (style != "JP") and (style != "EN"):
         print("Invalid style")
         sys.exit()
     if (type(start) is int) == False:
@@ -68,9 +68,8 @@ def genarate_str(config):
         "Sat": "土",
     }
 
-    
     monday = monday + datetime.timedelta(days=start * 7)
-    
+
     if style == "JP":
         for j in range(days * loop):
             d = monday + datetime.timedelta(days=j)
@@ -83,7 +82,7 @@ def genarate_str(config):
             d = monday + datetime.timedelta(days=j)
             d = d.strftime("%m/%d(%a)")
             export_str += str(d) + "\n"
-                
+
     return export_str
 
 
