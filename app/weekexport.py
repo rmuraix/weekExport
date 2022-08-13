@@ -42,10 +42,10 @@ def genarate_str(config):
     if style not in ["JP", "EN"]:
         print("Invalid style")
         sys.exit()
-    if (type(start) is int) == False:
+    if (type(start) is int) is not True:
         print("start must be integer")
         sys.exit()
-    if (type(loop) is int) == False:
+    if (type(loop) is int) is not True:
         print("loop must be integer")
         sys.exit()
     if loop < 1:
