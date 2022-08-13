@@ -20,13 +20,13 @@ def main():
     export_str = genarate_str(config)
     pyperclip.copy(export_str) # copy to clipboard
 
-    input("Copied to Clipboard! Press Enter to Exit.")
+    input("\nCopied to Clipboard! Press Enter to Exit.")
 
 
 def genarate_json(
     json_path,
 ):  # generate json file When "./run_config.json" cannot be found
-    json_str = {"style": "JP", "start": 1, "loop": 1, "days": 7}
+    json_str = {"style": "EN", "start": 1, "loop": 1, "days": 7}
     with open(json_path, "w") as f:
         json.dump(json_str, f, indent=4)
 
@@ -35,18 +35,22 @@ def genarate_str(config):
     try:
         style = config["style"]
     except KeyError:
-        style = "JP"
+        print("style is not found in config file. So use the default: EN")
+        style = "EN"
     try:
         start = config["start"]
     except KeyError:
+        print("start is not found in config file. So use the default: 1")
         start = 1
     try:
         loop = config["loop"]
     except KeyError:
+        print("loop is not found in config file. So use the default: 1")
         loop = 1
     try:
         days = config["days"]
     except KeyError:
+        print("days is not found in config file. So use the default: 7")
         days = 7
 
     export_str = ""
@@ -64,7 +68,10 @@ def genarate_str(config):
     if loop < 1:
         print("loop must be greater than 0")
         sys.exit()
-    if (days < 1) or (days > 7):
+    if (type(days) is int) is not True:
+        print("days must be integer")
+        sys.exit()
+    elif (days < 1) or (days > 7):
         print("days must be 1-7")
         sys.exit()
 
@@ -84,17 +91,21 @@ def genarate_str(config):
     }
 
     if style == "JP":
-        for j in range(days * loop):
-            d = monday + datetime.timedelta(days=j)
-            key = d.strftime("%a")
-            w = d_week[key]
-            d = d.strftime("%m/%d") + f"({w})"
-            export_str += str(d) + "\n"
+        for i in range(loop):
+            monday = monday + datetime.timedelta(days=start * (7 * i))
+            for j in range(days):
+                d = monday + datetime.timedelta(days=j)
+                key = d.strftime("%a")
+                w = d_week[key]
+                d = d.strftime("%m/%d") + f"({w})"
+                export_str += str(d) + "\n"
     elif style == "EN":
-        for j in range(days * loop):
-            d = monday + datetime.timedelta(days=j)
-            d = d.strftime("%m/%d(%a)")
-            export_str += str(d) + "\n"
+        for i in range(loop):
+            monday = monday + datetime.timedelta(days=start * (7 * i))
+            for j in range(days * loop):
+                d = monday + datetime.timedelta(days=j)
+                d = d.strftime("%m/%d(%a)")
+                export_str += str(d) + "\n"
 
     return export_str
 
