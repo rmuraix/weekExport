@@ -31,7 +31,7 @@ output:
 
 Of course, Python file can run on any OS.
 ## Contributing  
-Read [CONTRIBUTING.md](/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](/CODE_OF_CONDUCT.md)   
+Please read [CONTRIBUTING.md](/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./.github/CODE_OF_CONDUCT.md)   
 ## Auther
 Ryota Murai ([@rmuraix](https://github.com/rmuraix))  
 ## License
