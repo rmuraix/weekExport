@@ -18,7 +18,7 @@ def main():
             config = json.load(f)
 
     export_str = genarate_str(config)
-    pyperclip.copy(export_str)
+    pyperclip.copy(export_str) # copy to clipboard
 
     input("Copied to Clipboard! Press Enter to Exit.")
 
@@ -32,13 +32,26 @@ def genarate_json(
 
 
 def genarate_str(config):
-    style = config["style"]
-    start = config["start"]
-    loop = config["loop"]
-    days = config["days"]
+    try:
+        style = config["style"]
+    except KeyError:
+        style = "JP"
+    try:
+        start = config["start"]
+    except KeyError:
+        start = 1
+    try:
+        loop = config["loop"]
+    except KeyError:
+        loop = 1
+    try:
+        days = config["days"]
+    except KeyError:
+        days = 7
+
     export_str = ""
 
-    # rule　check
+    # check rule
     if style not in ["JP", "EN"]:
         print("Invalid style")
         sys.exit()
@@ -57,7 +70,9 @@ def genarate_str(config):
 
     now_date = datetime.date.today()
     monday = now_date - datetime.timedelta(days=now_date.weekday())
-
+    monday = monday + datetime.timedelta(days=start * 7) # start from monday
+    
+    # japanese weekdays
     d_week = {
         "Sun": "日",
         "Mon": "月",
@@ -65,10 +80,8 @@ def genarate_str(config):
         "Wed": "水",
         "Thu": "木",
         "Fri": "金",
-        "Sat": "土",
+        "Sat": "土"
     }
-
-    monday = monday + datetime.timedelta(days=start * 7)
 
     if style == "JP":
         for j in range(days * loop):
