@@ -18,7 +18,7 @@ def main():
             config = json.load(f)
 
     export_str = genarate_str(config)
-    pyperclip.copy(export_str) # copy to clipboard
+    pyperclip.copy(export_str)  # copy to clipboard
 
     input("\nCopied to Clipboard! Press Enter to Exit.")
 
@@ -77,8 +77,8 @@ def genarate_str(config):
 
     now_date = datetime.date.today()
     monday = now_date - datetime.timedelta(days=now_date.weekday())
-    monday = monday + datetime.timedelta(days=start * 7) # start from monday
-    
+    monday = monday + datetime.timedelta(days=start * 7)  # start from monday
+
     # japanese weekdays
     d_week = {
         "Sun": "日",
@@ -87,7 +87,7 @@ def genarate_str(config):
         "Wed": "水",
         "Thu": "木",
         "Fri": "金",
-        "Sat": "土"
+        "Sat": "土",
     }
 
     if style == "JP":
