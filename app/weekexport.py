@@ -102,7 +102,7 @@ def genarate_str(config):
     elif style == "EN":
         for i in range(loop):
             monday = monday + datetime.timedelta(days=start * (7 * i))
-            for j in range(days * loop):
+            for j in range(days):
                 d = monday + datetime.timedelta(days=j)
                 d = d.strftime("%m/%d(%a)")
                 export_str += str(d) + "\n"
