@@ -21,7 +21,11 @@ jobs:
           pip install -r requirements.txt
       - name: build with nuitka
         run: |
-          python -m nuitka --follow-imports --onefile --assume-yes-for-downloads app/weekexport.py
+          python -m nuitka --onefile --assume-yes-for-downloads app/weekexport.py
+      - name: Update NOTICE
+        shell: powershell
+        run:  |
+          pip-licenses --with-urls --with-authors --with-description --format=markdown --output-file=./NOTICE.md
       - name: Package
         shell: powershell
         run:  |
@@ -50,7 +54,7 @@ jobs:
           pip install -r requirements.txt
       - name: build with nuitka
         run: |
-          python -m nuitka --follow-imports --onefile --macos-create-app-bundle --assume-yes-for-downloads app/weekexport.py
+          python -m nuitka --onefile --macos-create-app-bundle --assume-yes-for-downloads app/weekexport.py
       - name: Update NOTICE
         shell: bash
         run:  |
@@ -83,7 +87,7 @@ jobs:
           pip install -r requirements.txt
       - name: build with nuitka
         run: |
-          python -m nuitka --follow-imports --onefile --assume-yes-for-downloads app/weekexport.py
+          python -m nuitka --onefile --assume-yes-for-downloads app/weekexport.py
       - name: Update NOTICE
         shell: bash
         run:  |
