@@ -72,8 +72,17 @@ Output:
 > 08/06(土)  
 > 08/07(日)  
 
+## Build
+Windows and Linux  
+```bash
+nuitka --onefile app/weekexport.py
+```  
+Mac  
+```bash
+nuitka --onefile --macos-create-app-bundle app/weekexport.py
+```  
 ## Contributing  
-Please read [CONTRIBUTING.md](/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./.github/CODE_OF_CONDUCT.md)   
+Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./.github/CODE_OF_CONDUCT.md)   
 ## Auther
 Ryota Murai ([@rmuraix](https://github.com/rmuraix))  
 ## License
