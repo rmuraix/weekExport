@@ -1,4 +1,4 @@
-name: Build and Upload
+name: Build
 
 on: 
   push:
@@ -25,7 +25,7 @@ jobs:
       - name: Package
         shell: powershell
         run:  |
-          7z a weekExport_windows_x64.zip '${{github.workspace}}/weekexport.exe'
+          7z a weekExport_windows_x64.zip '${{github.workspace}}/weekexport.exe' '${{github.workspace}}/NOTICE.md'
       - uses: actions/upload-artifact@v3
         with:
           name: weekExport_windows_x64.zip
@@ -51,10 +51,14 @@ jobs:
       - name: build with nuitka
         run: |
           python -m nuitka --follow-imports --onefile --macos-create-app-bundle --assume-yes-for-downloads app/weekexport.py
+      - name: Update NOTICE
+        shell: bash
+        run:  |
+          pip-licenses --with-urls --with-authors --with-description --format=markdown --output-file=./NOTICE.md
       - name: Package
         shell: bash
         run:  |
-          tar czvf weekExport_mac_x64.tgz ${{github.workspace}}/weekexport.app
+          tar czvf weekExport_mac_x64.tgz ${{github.workspace}}/weekexport.app ${{github.workspace}}/NOTICE.md
       - uses: actions/upload-artifact@v3
         with:
           name: weekExport_mac_x64.tgz
@@ -80,10 +84,14 @@ jobs:
       - name: build with nuitka
         run: |
           python -m nuitka --follow-imports --onefile --assume-yes-for-downloads app/weekexport.py
+      - name: Update NOTICE
+        shell: bash
+        run:  |
+          pip-licenses --with-urls --with-authors --with-description --format=markdown --output-file=./NOTICE.md
       - name: Package
         shell: bash
         run:  |
-          tar czvf weekExport_linux_x64.tgz ${{github.workspace}}/weekexport.bin
+          tar czvf weekExport_linux_x64.tgz ${{github.workspace}}/weekexport.bin ${{github.workspace}}/NOTICE.md
       - uses: actions/upload-artifact@v3
         with:
           name: weekExport_linux_x64.tgz
@@ -94,5 +102,3 @@ jobs:
         with:
           files: |
             weekExport_linux_x64.tgz
-            LICENSE
-            NOTICE.md

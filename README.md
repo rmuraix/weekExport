@@ -73,7 +73,7 @@ Output:
 > 08/07(日)  
 
 ## Contributing  
-Please read [CONTRIBUTING.md](/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./.github/CODE_OF_CONDUCT.md)   
+Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./.github/CODE_OF_CONDUCT.md)   
 ## Auther
 Ryota Murai ([@rmuraix](https://github.com/rmuraix))  
 ## License
