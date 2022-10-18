@@ -59,16 +59,16 @@ def genarate_str(config):
     if style not in ["JP", "EN"]:
         print("Invalid style")
         sys.exit()
-    if (type(start) is int) is not True:
+    if type(start) is not int:
         print("start must be integer")
         sys.exit()
-    if (type(loop) is int) is not True:
+    if type(loop) is not int:
         print("loop must be integer")
         sys.exit()
     if loop < 1:
         print("loop must be greater than 0")
         sys.exit()
-    if (type(days) is int) is not True:
+    if type(days) is not int:
         print("days must be integer")
         sys.exit()
     elif (days < 1) or (days > 7):
