@@ -90,22 +90,18 @@ def genarate_str(config):
         "Sat": "土",
     }
 
-    if style == "JP":
-        for i in range(loop):
-            monday = monday + datetime.timedelta(days=start * (7 * i))
-            for j in range(days):
-                d = monday + datetime.timedelta(days=j)
+    
+    for i in range(loop):
+        monday = monday + datetime.timedelta(days=start * (7 * i))
+        for j in range(days):
+            d = monday + datetime.timedelta(days=j)
+            if style == "JP":
                 key = d.strftime("%a")
                 w = d_week[key]
                 d = d.strftime("%m/%d") + f"({w})"
-                export_str += str(d) + "\n"
-    elif style == "EN":
-        for i in range(loop):
-            monday = monday + datetime.timedelta(days=start * (7 * i))
-            for j in range(days):
-                d = monday + datetime.timedelta(days=j)
+            else:
                 d = d.strftime("%m/%d(%a)")
-                export_str += str(d) + "\n"
+            export_str += str(d) + "\n"
 
     return export_str
 
