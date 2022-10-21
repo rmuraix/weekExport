@@ -9,11 +9,12 @@ def main():
     print("Repository: https://github.com/rmuraix/weekExport\n")
 
     json_path = "./run_config.json"
+    json_str = {"style": "EN", "start": 1, "loop": 1, "days": 7}
     try:
         with open(json_path) as f:
             config = json.load(f)
     except FileNotFoundError:
-        genarate_json(json_path)
+        genarate_json(json_path, json_str)
         with open(json_path) as f:
             config = json.load(f)
 
@@ -23,10 +24,8 @@ def main():
     input("\nCopied to Clipboard! Press Enter to Exit.")
 
 
-def genarate_json(
-    json_path,
-):  # generate json file When "./run_config.json" cannot be found
-    json_str = {"style": "EN", "start": 1, "loop": 1, "days": 7}
+def genarate_json(json_path, json_str):  
+# generate json file When "./run_config.json" cannot be found
     with open(json_path, "w") as f:
         json.dump(json_str, f, indent=4)
 
