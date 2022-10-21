@@ -2,7 +2,6 @@ from src import weekexport
 import datetime
 
 
-
 def test_check_config():
     config = {"style": "JP", "start": 1, "loop": 1, "days": 1}
     assert weekexport.check_config(config) is True
@@ -61,5 +60,3 @@ def test_genarate_str():
 
     config = {"style": "EN", "start": 1, "loop": 1, "days": 1}
     assert weekexport.genarate_str(monday, config) == "10/03(Mon)\n"
-
-
