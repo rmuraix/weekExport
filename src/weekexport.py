@@ -4,6 +4,7 @@ import json
 import sys
 import os
 
+
 def main():
     print("copyright (c) Ryota Murai")
     print("Repository: https://github.com/rmuraix/weekExport\n")
@@ -67,7 +68,11 @@ def check_config(config):
 
 
 def get_monday(today, start):
-    monday = today - datetime.timedelta(days=today.weekday()) + datetime.timedelta(days=start * 7)
+    monday = (
+        today
+        - datetime.timedelta(days=today.weekday())
+        + datetime.timedelta(days=start * 7)
+    )
     return monday
 
 
@@ -84,9 +89,9 @@ def genarate_str(monday, config):
     }
 
     export_str = ""
-    
+
     for i in range(config["loop"]):
-        
+
         monday = monday + datetime.timedelta(days=config["start"] * (7 * i))
         for j in range(config["days"]):
             d = monday + datetime.timedelta(days=j)
@@ -99,6 +104,7 @@ def genarate_str(monday, config):
             export_str += str(d) + "\n"
 
     return export_str
+
 
 if __name__ == "__main__":
     main()
