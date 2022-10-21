@@ -30,3 +30,9 @@ jobs:
           coverage-file: coverage.xml
           dsn: ${{ secrets.DEEPSOURCE_DSN }}
           fail-ci-on-error: true
+      - name: Codecov
+        uses: codecov/codecov-action@v3.1.1
+        with: 
+          files: coverage.xml
+          flags: unittests
+          fail_ci_if_error: true
