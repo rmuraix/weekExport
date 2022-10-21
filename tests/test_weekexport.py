@@ -5,35 +5,35 @@ import datetime
 
 def test_check_config():
     config = {"style": "JP", "start": 1, "loop": 1, "days": 1}
-    assert weekexport.check_config(config) == True
+    assert weekexport.check_config(config) is True
 
     config = {"style": "EN", "start": 1, "loop": 1, "days": 1}
-    assert weekexport.check_config(config) == True
+    assert weekexport.check_config(config) is True
 
     config = {"style": "EU", "start": 1, "loop": 1, "days": 1}
-    assert weekexport.check_config(config) == False
+    assert weekexport.check_config(config) is False
 
     config = {"style": "EN", "start": 1, "loop": -1, "days": 1}
-    assert weekexport.check_config(config) == False
+    assert weekexport.check_config(config) is False
 
     config = {"style": "EN", "start": 1, "loop": 1, "days": -1}
-    assert weekexport.check_config(config) == False
+    assert weekexport.check_config(config) is False
 
     # type error
     config = {"style": 1, "start": 1, "loop": 1, "days": 1}
-    assert weekexport.check_config(config) == False
+    assert weekexport.check_config(config) is False
 
     config = {"style": "JP", "start": "text", "loop": 1, "days": 1}
-    assert weekexport.check_config(config) == False
+    assert weekexport.check_config(config) is False
 
     config = {"style": "JP", "start": 1, "loop": "text", "days": 1}
-    assert weekexport.check_config(config) == False
+    assert weekexport.check_config(config) is False
 
     config = {"style": "JP", "start": 1, "loop": 1, "days": "text"}
-    assert weekexport.check_config(config) == False
+    assert weekexport.check_config(config) is False
 
     config = {"style": "EN", "start": 1, "loop": 1, "days": 1}
-    assert weekexport.check_config(config) == True
+    assert weekexport.check_config(config) is True
 
 def test_get_monday():
     today = datetime.datetime(2022, 10, 7)
