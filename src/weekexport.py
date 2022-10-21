@@ -2,82 +2,76 @@ import pyperclip
 import datetime
 import json
 import sys
-
+import os
 
 def main():
     print("copyright (c) Ryota Murai")
     print("Repository: https://github.com/rmuraix/weekExport\n")
 
-    json_path = "./run_config.json"
-    json_str = {"style": "EN", "start": 1, "loop": 1, "days": 7}
-    try:
-        with open(json_path) as f:
-            config = json.load(f)
-    except FileNotFoundError:
-        genarate_json(json_path, json_str)
-        with open(json_path) as f:
+    is_file = os.path.isfile("./run_config.json")
+    default_config = {"style": "EN", "start": 1, "loop": 1, "days": 7}
+
+    if is_file:
+        with open("./run_config.json") as f:
             config = json.load(f)
 
-    export_str = genarate_str(config)
-    pyperclip.copy(export_str)  # copy to clipboard
+        # Check if JSON has the necessary keys.
+        # If not, add the default values.
+        for key, value in default_config.items():
+            if key not in config:
+                print(f"{key} is not found in config file. So use the default: {value}")
+                config[key] = value
 
-    input("\nCopied to Clipboard! Press Enter to Exit.")
+        # Verify that the key value is correct.
+        # If not correct, end the program.
+        is_correct = check_config(config)
+        if not is_correct:
+            print("Incorrect value in config file.")
+            sys.exit(1)
+    else:
+        config = default_config
+        with open("./run_config.json", "w") as f:
+            json.dump(config, f, indent=4)
+
+    today = datetime.date.today()
+    monday = get_monday(today, config["start"])
+
+    export_str = genarate_str(monday, config)
+
+    # copy to clipboard
+    pyperclip.copy(export_str)
+
+    input("Copied to Clipboard! Press Enter to Exit.")
 
 
-def genarate_json(json_path, json_str):  
-# generate json file When "./run_config.json" cannot be found
-    with open(json_path, "w") as f:
-        json.dump(json_str, f, indent=4)
+def check_config(config):
+    if type(config["style"]) != str:
+        return False
+    if type(config["start"]) != int:
+        return False
+    if type(config["loop"]) != int:
+        return False
+    if type(config["days"]) != int:
+        return False
 
-
-def genarate_str(config):
-    try:
-        style = config["style"]
-    except KeyError:
-        print("style is not found in config file. So use the default: EN")
-        style = "EN"
-    try:
-        start = config["start"]
-    except KeyError:
-        print("start is not found in config file. So use the default: 1")
-        start = 1
-    try:
-        loop = config["loop"]
-    except KeyError:
-        print("loop is not found in config file. So use the default: 1")
-        loop = 1
-    try:
-        days = config["days"]
-    except KeyError:
-        print("days is not found in config file. So use the default: 7")
-        days = 7
-
-    export_str = ""
-
-    # check rule
-    if style not in ["JP", "EN"]:
+    if config["style"] not in ["JP", "EN"]:
         print("Invalid style")
-        sys.exit()
-    if type(start) is not int:
-        print("start must be integer")
-        sys.exit()
-    if type(loop) is not int:
-        print("loop must be integer")
-        sys.exit()
-    if loop < 1:
-        print("loop must be greater than 0")
-        sys.exit()
-    if type(days) is not int:
-        print("days must be integer")
-        sys.exit()
-    elif (days < 1) or (days > 7):
-        print("days must be 1-7")
-        sys.exit()
+        return False
+    if config["loop"] < 1:
+        print("Invalid loop")
+        return False
+    if config["days"] < 1:
+        print("Invalid days")
+        return False
+    return True
 
-    now_date = datetime.date.today()
-    monday = now_date - datetime.timedelta(days=now_date.weekday())
-    monday = monday + datetime.timedelta(days=start * 7)  # start from monday
 
+def get_monday(today, start):
+    monday = today - datetime.timedelta(days=today.weekday()) + datetime.timedelta(days=start * 7)
+    return monday
+
+
+def genarate_str(monday, config):
     # japanese weekdays
     d_week = {
         "Sun": "日",
@@ -89,12 +83,14 @@ def genarate_str(config):
         "Sat": "土",
     }
 
+    export_str = ""
     
-    for i in range(loop):
-        monday = monday + datetime.timedelta(days=start * (7 * i))
-        for j in range(days):
+    for i in range(config["loop"]):
+        
+        monday = monday + datetime.timedelta(days=config["start"] * (7 * i))
+        for j in range(config["days"]):
             d = monday + datetime.timedelta(days=j)
-            if style == "JP":
+            if config["style"] == "JP":
                 key = d.strftime("%a")
                 w = d_week[key]
                 d = d.strftime("%m/%d") + f"({w})"
@@ -103,7 +99,6 @@ def genarate_str(config):
             export_str += str(d) + "\n"
 
     return export_str
-
 
 if __name__ == "__main__":
     main()
