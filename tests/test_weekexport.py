@@ -1,9 +1,6 @@
 from src import weekexport
 import datetime
 
-# import pytest
-# import io
-
 
 def test_check_config():
     config = {"style": "JP", "start": 1, "loop": 1, "days": 1}
@@ -63,11 +60,3 @@ def test_genarate_str():
 
     config = {"style": "EN", "start": 1, "loop": 1, "days": 1}
     assert weekexport.genarate_str(monday, config) == "10/03(Mon)\n"
-
-
-# def test_main(monkeypatch):
-#    monkeypatch.setattr('sys.stdin', io.StringIO("1\n4\n"))
-#    with pytest.raises(SystemExit) as e:
-#        weekexport.main()
-#    assert e.type == SystemExit
-#    assert e.value.code == 0
