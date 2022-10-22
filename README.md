@@ -1,9 +1,7 @@
 # WeekExport
-![License:MIT License](https://img.shields.io/github/license/rmuraix/weekExport)
-![issues](https://img.shields.io/github/issues/rmuraix/weekExport)
-[![CodeQL](https://github.com/rmuraix/weekExport/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/rmuraix/weekExport/actions/workflows/codeql-analysis.yml)
-[![Build and Upload](https://github.com/rmuraix/weekExport/actions/workflows/buildAndUpload.yml/badge.svg)](https://github.com/rmuraix/weekExport/actions/workflows/buildAndUpload.yml)  
-[![DeepSource](https://deepsource.io/gh/rmuraix/weekExport.svg/?label=active+issues&show_trend=true&token=UgBDSqrPFnTHj9hfza8F_ora)](https://deepsource.io/gh/rmuraix/weekExport/?ref=repository-badge)  
+[![Build](https://github.com/rmuraix/weekExport/actions/workflows/build.yml/badge.svg)](https://github.com/rmuraix/weekExport/actions/workflows/build.yml)
+[![DeepSource](https://deepsource.io/gh/rmuraix/weekExport.svg/?label=active+issues&token=UgBDSqrPFnTHj9hfza8F_ora)](https://deepsource.io/gh/rmuraix/weekExport/?ref=repository-badge)
+[![codecov](https://codecov.io/gh/rmuraix/weekExport/branch/main/graph/badge.svg?token=9NAC1P80DY)](https://codecov.io/gh/rmuraix/weekExport)  
 ## About
 Outputs dates to the clipboard.  
 ## Usage
@@ -75,11 +73,11 @@ Output:
 ## Build
 Windows and Linux  
 ```bash
-nuitka --onefile app/weekexport.py
+nuitka --onefile src/weekexport.py
 ```  
 Mac  
 ```bash
-nuitka --onefile --macos-create-app-bundle app/weekexport.py
+nuitka --onefile --macos-create-app-bundle src/weekexport.py
 ```  
 ## Contributing  
 Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./.github/CODE_OF_CONDUCT.md)   
