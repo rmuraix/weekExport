@@ -21,7 +21,7 @@ jobs:
           pip install -r requirements.txt
       - name: build with nuitka
         run: |
-          python -m nuitka --onefile --assume-yes-for-downloads src/weekexport.py
+          python -m nuitka --onefile --windows-icon-from-ico=img/weekexport_logo256.png --assume-yes-for-downloads src/weekexport.py
       - name: Update NOTICE
         shell: powershell
         run:  |
@@ -54,7 +54,7 @@ jobs:
           pip install -r requirements.txt
       - name: build with nuitka
         run: |
-          python -m nuitka --onefile --macos-create-app-bundle --assume-yes-for-downloads src/weekexport.py
+          python -m nuitka --onefile --windows-icon-from-ico=img/weekexport_logo256.png --macos-create-app-bundle --assume-yes-for-downloads src/weekexport.py
       - name: Update NOTICE
         shell: bash
         run:  |
@@ -87,7 +87,7 @@ jobs:
           pip install -r requirements.txt
       - name: build with nuitka
         run: |
-          python -m nuitka --onefile --assume-yes-for-downloads src/weekexport.py
+          python -m nuitka --onefile --windows-icon-from-ico=img/weekexport_logo256.png --assume-yes-for-downloads src/weekexport.py
       - name: Update NOTICE
         shell: bash
         run:  |
