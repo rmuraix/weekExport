@@ -23,13 +23,6 @@ jobs:
       - name: Run test
         run: |
           python -m pytest tests/test_weekexport.py --cov --cov-branch --cov-report xml
-      - name: Report test coverage to DeepSource
-        uses: deepsourcelabs/test-coverage-action@master
-        with:
-          key: python
-          coverage-file: coverage.xml
-          dsn: ${{ secrets.DEEPSOURCE_DSN }}
-          fail-ci-on-error: true
       - name: Codecov
         uses: codecov/codecov-action@v3.1.1
         with: 
