@@ -4,6 +4,8 @@
 [![codecov](https://codecov.io/gh/rmuraix/weekExport/branch/main/graph/badge.svg?token=9NAC1P80DY)](https://codecov.io/gh/rmuraix/weekExport)  
 ## About
 Outputs dates to the clipboard.  
+## Requirements
+Linux: xclip or xsel commands and gtk or PyQt4 modules.  
 ## Usage
 - Download latest release in [here](https://github.com/rmuraix/weekExport/releases).  
 ### Configuration Options
