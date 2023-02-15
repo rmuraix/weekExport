@@ -7,8 +7,11 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  build-on-windows:
-    runs-on: windows-latest
+  release:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - name: setup python
@@ -16,93 +19,47 @@ jobs:
         with:
           python-version: "3.10"
       - name: Install dependencies
+        shell: bash
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: build with nuitka
+        shell: bash
         run: |
-          python -m nuitka --onefile --assume-yes-for-downloads src/weekexport.py
+          if [ "$RUNNER_OS" == "macOS" ]; then
+              python -m nuitka --onefile --macos-create-app-bundle --assume-yes-for-downloads src/weekexport.py
+          else
+              python -m nuitka --onefile --assume-yes-for-downloads src/weekexport.py
+          fi
       - name: Update NOTICE
-        shell: powershell
+        shell: bash
         run:  |
           pip-licenses --with-urls --with-authors --with-description --format=markdown --output-file=./NOTICE.md
       - name: Package
-        shell: powershell
+        shell: shell
         run:  |
-          7z a weekExport_windows_x64.zip '${{github.workspace}}/weekexport.exe' '${{github.workspace}}/NOTICE.md'
-      - uses: actions/upload-artifact@v3
-        with:
-          name: weekExport_windows_x64.zip
-          path: weekExport_windows_x64.zip
-      - name: Release
+          if [ "$RUNNER_OS" == "Windows" ]; then
+              7z a weekExport_windows_x64.zip '${{github.workspace}}/weekexport.exe' '${{github.workspace}}/NOTICE.md'
+          elif [ "$RUNNER_OS" == "Linux" ]; then
+              tar czvf weekExport_linux_x64.tgz ${{github.workspace}}/weekexport.bin ${{github.workspace}}/NOTICE.md
+          else
+              tar czvf weekExport_mac_x64.tgz ${{github.workspace}}/weekexport.app ${{github.workspace}}/NOTICE.md
+          fi
+      - name: Release(Windows)
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        if: ${{ startsWith(github.ref, 'refs/tags/') && runner.os == 'Windows' }}
         with:
           files: |
             weekExport_windows_x64.zip
-  build-on-macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: setup python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: build with nuitka
-        run: |
-          python -m nuitka --onefile --macos-create-app-bundle --assume-yes-for-downloads src/weekexport.py
-      - name: Update NOTICE
-        shell: bash
-        run:  |
-          pip-licenses --with-urls --with-authors --with-description --format=markdown --output-file=./NOTICE.md
-      - name: Package
-        shell: bash
-        run:  |
-          tar czvf weekExport_mac_x64.tgz ${{github.workspace}}/weekexport.app ${{github.workspace}}/NOTICE.md
-      - uses: actions/upload-artifact@v3
-        with:
-          name: weekExport_mac_x64.tgz
-          path: weekExport_mac_x64.tgz
-      - name: Release
+      - name: Release(Linux)
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: |
-            weekExport_mac_x64.tgz
-  build-on-ubuntu:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: setup python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: build with nuitka
-        run: |
-          python -m nuitka --onefile --assume-yes-for-downloads src/weekexport.py
-      - name: Update NOTICE
-        shell: bash
-        run:  |
-          pip-licenses --with-urls --with-authors --with-description --format=markdown --output-file=./NOTICE.md
-      - name: Package
-        shell: bash
-        run:  |
-          tar czvf weekExport_linux_x64.tgz ${{github.workspace}}/weekexport.bin ${{github.workspace}}/NOTICE.md
-      - uses: actions/upload-artifact@v3
-        with:
-          name: weekExport_linux_x64.tgz
-          path: weekExport_linux_x64.tgz
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        if: ${{ startsWith(github.ref, 'refs/tags/') && runner.os == 'Linux' }}
         with:
           files: |
             weekExport_linux_x64.tgz
+      - name: Release(MacOS)
+        uses: softprops/action-gh-release@v1
+        if: ${{ startsWith(github.ref, 'refs/tags/') && runner.os == 'macOS' }}
+        with:
+          files: |
+            weekExport_mac_x64.tgz
