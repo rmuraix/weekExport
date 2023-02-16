@@ -36,7 +36,7 @@ jobs:
         run:  |
           pip-licenses --with-urls --with-authors --with-description --format=markdown --output-file=./NOTICE.md
       - name: Package
-        shell: shell
+        shell: bash
         run:  |
           if [ "$RUNNER_OS" == "Windows" ]; then
               7z a weekExport_windows_x64.zip '${{github.workspace}}/weekexport.exe' '${{github.workspace}}/NOTICE.md'
