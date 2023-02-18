@@ -1,7 +1,7 @@
 # CONTRIBUTING
 
 ## Code of conduct
-Read [CODE_OF_CONDUCT.md](./.github/CODE_OF_CONDUCT.md)  
+Read [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)  
 
 ## Requirements
 - Python 3.10 or later  
