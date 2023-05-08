@@ -1,5 +1,5 @@
 Nuitka==1.5.7
 ordered-set==4.1.0
-pip-licenses==4.3.0
+pip-licenses==4.3.1
 pyperclip==1.8.2
 zstandard==0.21.0
