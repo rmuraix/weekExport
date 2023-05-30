@@ -1,6 +1,6 @@
 name: Test
 
-on: 
+on:
   push:
     tags: [v*]
     branches: [main]
@@ -15,6 +15,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
+          cache: "pip"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -25,7 +26,7 @@ jobs:
           python -m pytest tests/test_weekexport.py --cov --cov-branch --cov-report xml
       - name: Codecov
         uses: codecov/codecov-action@v3.1.4
-        with: 
+        with:
           files: coverage.xml
           flags: unittests
           fail_ci_if_error: true
