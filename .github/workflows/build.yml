@@ -46,21 +46,9 @@ jobs:
           else
               tar czvf weekExport_mac_x64.tgz ${{github.workspace}}/weekexport.app ${{github.workspace}}/NOTICE.md
           fi
-      - name: Release(Windows)
+      - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ startsWith(github.ref, 'refs/tags/') && runner.os == 'Windows' }}
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
           files: |
-            weekExport_windows_x64.zip
-      - name: Release(Linux)
-        uses: softprops/action-gh-release@v1
-        if: ${{ startsWith(github.ref, 'refs/tags/') && runner.os == 'Linux' }}
-        with:
-          files: |
-            weekExport_linux_x64.tgz
-      - name: Release(MacOS)
-        uses: softprops/action-gh-release@v1
-        if: ${{ startsWith(github.ref, 'refs/tags/') && runner.os == 'macOS' }}
-        with:
-          files: |
-            weekExport_mac_x64.tgz
+            weekExport_*_x64.*
