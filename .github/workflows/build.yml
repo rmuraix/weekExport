@@ -40,11 +40,9 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-              7z a weekExport_windows_x64.zip '${{github.workspace}}/weekexport.exe' '${{github.workspace}}/NOTICE.md'
-          elif [ "$RUNNER_OS" == "Linux" ]; then
-              tar czvf weekExport_linux_x64.tgz ${{github.workspace}}/weekexport.bin ${{github.workspace}}/NOTICE.md
+              7z a weekExport_"$RUNNER_OS"_x64.zip '${{github.workspace}}/weekexport.exe' '${{github.workspace}}/NOTICE.md'
           else
-              tar czvf weekExport_mac_x64.tgz ${{github.workspace}}/weekexport.app ${{github.workspace}}/NOTICE.md
+              tar czvf weekExport_"$RUNNER_OS"_x64.tgz ${{github.workspace}}/weekexport.* ${{github.workspace}}/NOTICE.md
           fi
       - name: Release
         uses: softprops/action-gh-release@v1
